@@ -19,7 +19,7 @@ export class AppComponent {
   irisForm = ["largo del sépalo","Ancho del sépalo","Largo del pétalo","Ancho del pétalo"];
   housesForm = ["Habitantes en vivienda","Colegios por localidad", "Porcentaje de estado inferior de la población"];
   wineForm = ["Tipo","Acidez fija","Acidez volátil","Acido cítrico","Azúcar residual","Cloruros",
-    "Dióxido de azufre libre", "Dióxido de azufre total", "Densidad", "pH", "Sulfatos", "Alcohol", "Calidad"
+    "Dióxido de azufre libre", "Dióxido de azufre total", "Densidad", "pH", "Sulfatos", "Alcohol"
 ];
   cirrForm = ["largo del sépalo","Ancho del sépalo","Largo del pétalo","Ancho del pétalo"];
   hepForm = ["Edad","Sexo","ALB","ALP", "ALT", "AST", "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"];
@@ -65,6 +65,7 @@ export class AppComponent {
               this.result = data;
               console.log(data)
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
@@ -75,6 +76,7 @@ export class AppComponent {
             this.dataService.changeTp(dataQ).subscribe((data:any)=>{
               this.result = data;
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
@@ -85,6 +87,7 @@ export class AppComponent {
             this.dataService.vehiclePrice(dataQ).subscribe((data:any)=>{
               this.result = data;
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
@@ -106,6 +109,7 @@ export class AppComponent {
             this.dataService.rossmannCompany(dataQ).subscribe((data:any)=>{
               this.result = data;
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
@@ -116,6 +120,7 @@ export class AppComponent {
             this.dataService.bodyFat(dataQ).subscribe((data:any)=>{
               this.result = data;
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
@@ -128,6 +133,7 @@ export class AppComponent {
             this.dataService.hepatitisType(dataQ).subscribe((data:any)=>{
               this.result = data;
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
@@ -138,6 +144,7 @@ export class AppComponent {
             this.dataService.cirrosisType(dataQ).subscribe((data:any)=>{
               this.result = data;
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
@@ -145,11 +152,12 @@ export class AppComponent {
         case "wine":{
           let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]), d3: parseFloat(dataq[2]), d4: parseFloat(dataq[3]),
             d5: parseFloat(dataq[4]), d6: parseFloat(dataq[5]), d7: parseFloat(dataq[6]), d8: parseFloat(dataq[7]), d9: parseFloat(dataq[8]),
-            d10: parseFloat(dataq[9]), d11: parseFloat(dataq[10]), d12: parseFloat(dataq[11]), d13: parseFloat(dataq[12])}));
+            d10: parseFloat(dataq[9]), d11: parseFloat(dataq[10]), d12: parseFloat(dataq[11])}));
           if(true){
             this.dataService.wineQuality(dataQ).subscribe((data:any)=>{
               this.result = data;
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
@@ -160,6 +168,7 @@ export class AppComponent {
             this.dataService.homeRental(dataQ).subscribe((data:any)=>{
               this.result = data;
               this.showResult = true;
+              console.log(this.result);
             })
           }
           break;
