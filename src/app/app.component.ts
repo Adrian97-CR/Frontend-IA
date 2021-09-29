@@ -21,13 +21,14 @@ export class AppComponent {
   wineForm = ["Tipo","Acidez fija","Acidez volátil","Acido cítrico","Azúcar residual","Cloruros",
     "Dióxido de azufre libre", "Dióxido de azufre total", "Densidad", "pH", "Sulfatos", "Alcohol"
 ];
-  cirrForm = ["largo del sépalo","Ancho del sépalo","Largo del pétalo","Ancho del pétalo"];
+  cirrForm = ["Colesterol","Albúmina","Cobre","Alk_Phos", "SGOT", "Triglicéridos", "Plaquetas", "Protrombina", "Escenario"];
   hepForm = ["Edad","Sexo","ALB","ALP", "ALT", "AST", "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"];
   fatForm = ["Densidad", "Peso"];
-  rossForm = ["largo del sépalo","Ancho del sépalo","Largo del pétalo","Ancho del pétalo"];
-  vehicleForm = ["largo del sépalo","Ancho del sépalo","Largo del pétalo","Ancho del pétalo"];
-  telephForm = ["largo del sépalo","Ancho del sépalo","Largo del pétalo","Ancho del pétalo"];
-  avocadoForm = ["largo del sépalo","Ancho del sépalo","Largo del pétalo","Ancho del pétalo"];
+  rossForm = ["Clientes", "Vacaciones escolares", "Abierta"];
+  vehicleForm = ["Precio actual"];
+  telephForm = ["Ciudadano mayor", "Socio, tenencia", "Servicio telefónico", "Múltiples líneas", "Servicio de Internet",
+     "Seguridad en línea", "Respaldo en línea", "Protección de dispositivos", "soporte técnico"];
+  avocadoForm = ["4046", "Volumen total"];
   constructor(private dataService:DataService,
     private fb: FormBuilder) { 
     this.sample = this.fb.group({
@@ -59,19 +60,19 @@ export class AppComponent {
       });
       switch (this.id) {
         case "avocado":{
-          let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0])}));
+          let dataQ = JSON.parse(JSON.stringify({d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1])}));
           if(true){
             this.dataService.avocadoPrice(dataQ).subscribe((data:any)=>{
               this.result = data;
-              console.log(data)
               this.showResult = true;
-              console.log(this.result);
             })
           }
           break;
         }
         case "teleph":{
-          let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0])}));
+          let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]), d3: parseFloat(dataq[2]), d4: parseFloat(dataq[3]),
+            d5: parseFloat(dataq[4]), d6: parseFloat(dataq[5]), d7: parseFloat(dataq[6]), d8: parseFloat(dataq[7]), d9: parseFloat(dataq[8]),
+            d10: parseFloat(dataq[9])}));
           if(true){
             this.dataService.changeTp(dataQ).subscribe((data:any)=>{
               this.result = data;
@@ -104,7 +105,7 @@ export class AppComponent {
           break;
         }
         case "ross":{
-          let dataQ = JSON.parse(JSON.stringify({ d1: dataq[0], d2: dataq[1],d3: dataq[2],d4: dataq[3]}));
+          let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]), d3: parseFloat(dataq[2])}));
           if(true){
             this.dataService.rossmannCompany(dataQ).subscribe((data:any)=>{
               this.result = data;
@@ -139,7 +140,8 @@ export class AppComponent {
           break;
         }
         case "cirr":{
-          let dataQ = JSON.parse(JSON.stringify({ d1: dataq[0], d2: dataq[1],d3: dataq[2],d4: dataq[3]}));
+          let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]), d3: parseFloat(dataq[2]), d4: parseFloat(dataq[3]),
+            d5: parseFloat(dataq[4]), d6: parseFloat(dataq[5]), d7: parseFloat(dataq[6]), d8: parseFloat(dataq[7]), d9: parseFloat(dataq[8])}));
           if(true){
             this.dataService.cirrosisType(dataQ).subscribe((data:any)=>{
               this.result = data;
@@ -163,7 +165,7 @@ export class AppComponent {
           break;
         }
         case "houses":{
-          let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]), d3: parseFloat(dataq[2]) }));
+          let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]), d3: parseFloat(dataq[2])}));
           if(true){
             this.dataService.homeRental(dataQ).subscribe((data:any)=>{
               this.result = data;
