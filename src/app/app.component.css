@@ -127,7 +127,9 @@
   .card-container .card:not(.highlight-card):hover .material-icons path {
     fill: rgb(105, 103, 103);
   }
-
+  .btnMic {
+    padding-bottom: 1px;
+  }
   .card.highlight-card {
     background-color: #1976d2;
     color: white;

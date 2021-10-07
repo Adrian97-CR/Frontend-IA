@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
 export class DataService {
 
   constructor(private response: HttpClient) { }
-  private _API_ROOT = 'http://192.168.0.2:5000/'
+  private _API_ROOT = 'http://localhost:5000/'
 
   avocadoPrice(dataQuery:JSON){
     let headers = {};

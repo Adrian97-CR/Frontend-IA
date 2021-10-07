@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DataService } from './data.service';
+import { DataService } from './services/data.service';
+import { SpeechService } from 'src/app/services/speech.service';
 
 @Component({
   selector: 'app-root',
@@ -27,17 +28,27 @@ export class AppComponent {
   rossForm = ["Clientes", "Vacaciones escolares", "Abierta"];
   vehicleForm = ["Precio actual"];
   telephForm = ["Ciudadano mayor", "Socio, tenencia", "Servicio telefónico", "Múltiples líneas", "Servicio de Internet",
-     "Seguridad en línea", "Respaldo en línea", "Protección de dispositivos", "soporte técnico"];
+     "Seguridad en línea", "Respaldo en línea", "Protección de dispositivos", "Soporte técnico"];
   avocadoForm = ["4046", "Volumen total"];
-  constructor(private dataService:DataService,
+  constructor(private dataService:DataService, public speech: SpeechService,
     private fb: FormBuilder) { 
+    this.speech.init();
     this.sample = this.fb.group({
       orders: new FormArray([])
     });
   }
 
+  startService(id:number): void {
+    console.log(id)
+    this.speech.text = '';
+    this.speech.start().then((data:any)=>{
+      (this.sample.controls.orders as FormArray).at(id).patchValue(data.txt);
+    });
+    this.speech.error = false;
+  }
 
   createForm(form: any, id:string, name:string) {
+    this.showResult = false;
     this.sample = this.fb.group({
       orders: new FormArray([])
     });
@@ -63,7 +74,7 @@ export class AppComponent {
           let dataQ = JSON.parse(JSON.stringify({d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1])}));
           if(true){
             this.dataService.avocadoPrice(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
             })
           }
@@ -75,7 +86,7 @@ export class AppComponent {
             d10: parseFloat(dataq[9])}));
           if(true){
             this.dataService.changeTp(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
@@ -86,7 +97,7 @@ export class AppComponent {
           let dataQ = JSON.parse(JSON.stringify({d1: parseFloat(dataq[0])}));
           if(true){
             this.dataService.vehiclePrice(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
@@ -97,7 +108,7 @@ export class AppComponent {
           let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]),d3: parseFloat(dataq[2]),d4: parseFloat(dataq[3])}));
           if(true){
             this.dataService.findIris(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
@@ -108,7 +119,7 @@ export class AppComponent {
           let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]), d3: parseFloat(dataq[2])}));
           if(true){
             this.dataService.rossmannCompany(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
@@ -119,7 +130,7 @@ export class AppComponent {
           let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]) }));
           if(true){
             this.dataService.bodyFat(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
@@ -132,7 +143,7 @@ export class AppComponent {
             d10: parseFloat(dataq[9]), d11: parseFloat(dataq[10]), d12: parseFloat(dataq[11]) }));
           if(true){
             this.dataService.hepatitisType(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
@@ -144,7 +155,7 @@ export class AppComponent {
             d5: parseFloat(dataq[4]), d6: parseFloat(dataq[5]), d7: parseFloat(dataq[6]), d8: parseFloat(dataq[7]), d9: parseFloat(dataq[8])}));
           if(true){
             this.dataService.cirrosisType(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
@@ -157,7 +168,7 @@ export class AppComponent {
             d10: parseFloat(dataq[9]), d11: parseFloat(dataq[10]), d12: parseFloat(dataq[11])}));
           if(true){
             this.dataService.wineQuality(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
@@ -168,7 +179,7 @@ export class AppComponent {
           let dataQ = JSON.parse(JSON.stringify({ d1: parseFloat(dataq[0]), d2: parseFloat(dataq[1]), d3: parseFloat(dataq[2])}));
           if(true){
             this.dataService.homeRental(dataQ).subscribe((data:any)=>{
-              this.result = data;
+              this.result = data.response;
               this.showResult = true;
               console.log(this.result);
             })
