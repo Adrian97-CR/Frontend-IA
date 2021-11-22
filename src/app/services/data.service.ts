@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +49,16 @@ export class DataService {
   homeRental(dataQuery:JSON){
     let headers = {};
     return this.response.post(this._API_ROOT+'homeRental',dataQuery,{headers})
+  }
+
+  onUpload(uploadData:FormData) {
+  //   let httpOptions = {
+  //     headers: new HttpHeaders({
+  //        'Content-Type': 'multipart/form-data'
+  //     })
+  //  };
+    //let file = {'file': ('test.jpg', selectedFile, content_type)};
+    return this.response.post(this._API_ROOT+'upload', uploadData)
   }
 
 }

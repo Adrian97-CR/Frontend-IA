@@ -15,6 +15,7 @@ export class AppComponent {
   id = '';
   result = '';
   showResult = false;
+  GAN = false;
   public sample: FormGroup;
   public formConfig = [];
   irisForm = ["largo del sépalo","Ancho del sépalo","Largo del pétalo","Ancho del pétalo"];
@@ -30,16 +31,39 @@ export class AppComponent {
   telephForm = ["Ciudadano mayor", "Socio, tenencia", "Servicio telefónico", "Múltiples líneas", "Servicio de Internet",
      "Seguridad en línea", "Respaldo en línea", "Protección de dispositivos", "Soporte técnico"];
   avocadoForm = ["4046", "Volumen total"];
+
+  selectedFile: File;
+  isImage = false;
+  imName:any;
   constructor(private dataService:DataService, public speech: SpeechService,
-    private fb: FormBuilder) { 
+    private fb: FormBuilder) {
     this.speech.init();
     this.sample = this.fb.group({
       orders: new FormArray([])
     });
+    this.selectedFile = new File([], '')
+  }
+
+  onFileChanged(event:any) {
+    this.selectedFile = event.target.files[0]
+    this.isImage = true;
+    // this.imName = URL.createObjectURL(this.selectedFile);
+    let reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = (_event) => {
+      this.imName = reader.result;
+    }
+  }
+
+  onUpload() {
+    const uploadData:FormData = new FormData();
+    uploadData.append('file', this.selectedFile, this.selectedFile.name);
+    this.dataService.onUpload(uploadData).subscribe(event => {
+      console.log(event); // handle event here
+    });
   }
 
   startService(id:number): void {
-    console.log(id)
     this.speech.text = '';
     this.speech.start().then((data:any)=>{
       (this.sample.controls.orders as FormArray).at(id).patchValue(data.txt);
@@ -54,11 +78,20 @@ export class AppComponent {
     });
     this.formConfig = form;
     this.formConfig.forEach((o, i) => {
-      const control = new FormControl(''); 
+      const control = new FormControl('');
       (this.sample.controls.orders as FormArray).push(control);
     });
     this.id = id;
     this.ModalTitle = name;
+    this.GAN = false;
+    document.getElementById('modalBTT')?.click();
+  }
+
+  predictGan(name:string){
+    this.showResult = false;
+    this.isImage = false;
+    this.ModalTitle = name;
+    this.GAN= true;
     document.getElementById('modalBTT')?.click();
   }
 
@@ -186,10 +219,10 @@ export class AppComponent {
           }
           break;
         }
-      
+
         default:
           break;
       }
     }
-  
+
 }
