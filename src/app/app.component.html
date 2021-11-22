@@ -143,7 +143,7 @@
           <div *ngIf = "showResult">
             <hr>
             <h5>Resultado</h5>
-            <p> {{result}}.</p>
+            <p *ngFor='let item of result[0];let i = index'> {{item}} - {{result[1][i]}}%.</p>
           
           </div>
           <div class="modal-footer">

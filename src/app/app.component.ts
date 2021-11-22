@@ -31,7 +31,7 @@ export class AppComponent {
   telephForm = ["Ciudadano mayor", "Socio, tenencia", "Servicio telefónico", "Múltiples líneas", "Servicio de Internet",
      "Seguridad en línea", "Respaldo en línea", "Protección de dispositivos", "Soporte técnico"];
   avocadoForm = ["4046", "Volumen total"];
-
+  comidas = []
   selectedFile: File;
   isImage = false;
   imName:any;
@@ -58,8 +58,9 @@ export class AppComponent {
   onUpload() {
     const uploadData:FormData = new FormData();
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
-    this.dataService.onUpload(uploadData).subscribe(event => {
-      console.log(event); // handle event here
+    this.dataService.onUpload(uploadData).subscribe((data:any)=>{
+      this.result = data.response;
+      this.showResult = true;
     });
   }
 
